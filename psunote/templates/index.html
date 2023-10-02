@@ -8,7 +8,16 @@
 {% for note in notes %}
 <div class="card my-3">
   <div class="card-body">
-    <h4 class="card-title">{{ note.title }}</h4>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h4 class="card-title">{{ note.title }}</h4>
+        </div>
+        <div class="col" style="display: flex; justify-content: flex-end;">
+          <a class="btn btn-success" href="{{ url_for('notes_update', title_name=note.title) }}">Edit</a>
+        </div>
+      </div>
+    </div>
     <div class="card-text my-3">
       {{ note.description }}
     </div>
