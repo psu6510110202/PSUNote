@@ -93,6 +93,14 @@ def notes_update(title_name):
         title_name=title_name,
     )
 
+@app.route("/notes/<title_name>/delete", methods=["GET","POST"])
+def notes_delete(title_name):
+    db = models.db
+    note = db.session.execute(db.select(models.Note).where(models.Note.title == title_name)).scalars().first()
+    db.session.delete(note)
+    db.session.commit()
+    
+    return flask.redirect(flask.url_for("index"))
 
 
 @app.route("/tags/<tag_name>")
