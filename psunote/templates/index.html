@@ -2,7 +2,7 @@
 {% block body %}
 <ul class="nav justify-content-center" style="padding-top: 1em;">
   <li class="nav-item">
-    <a class="btn btn-primary" href="{{ url_for('notes_create') }}">Create</a>
+    <a class="btn btn-primary" href="{{ url_for('notes_create') }}">Create Note</a>
   </li>
 </ul>
 {% for note in notes %}
@@ -14,7 +14,8 @@
           <h4 class="card-title">{{ note.title }}</h4>
         </div>
         <div class="col" style="display: flex; justify-content: flex-end;">
-          <a class="btn btn-success" href="{{ url_for('notes_update', title_name=note.title) }}">Edit</a>
+          <a class="btn btn-success"  href="{{ url_for('notes_update', title_name=note.title) }}">Edit Note</a>
+          <a class="btn btn-danger" style="margin-left: 5px;" href="{{ url_for('notes_delete', title_name=note.title) }}">Delete</a>
         </div>
       </div>
     </div>
