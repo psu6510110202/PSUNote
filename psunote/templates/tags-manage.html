@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block body %}
+<div style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
+  <h6 style="color: red;">**To delete, you need to be sure that the tag is not in use.**</h6>
+</div>
 <div class="row">
     {% for tag in tags %}
     <div class="col-sm-3" style="width: 13rem;">
@@ -7,9 +10,15 @@
         <div class="card-body">
             <p class="card-text">Tags : {{tag.name}}</p>
             <a href="{{ url_for('tags_update', tag_name=tag.name) }}" class="btn btn-primary btn-sm">Edit</a>
+            {% if tag.id in tag_In_Use %}
+              <button class="btn btn-danger btn-sm" disabled>Delete</button>
+            {% else %}
+              <a href="{{ url_for('tags_delete', tag_name=tag.name) }}" class="btn btn-danger btn-sm">Delete</a>
+            {% endif %}
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
 {% endblock %}
+

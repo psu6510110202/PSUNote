@@ -124,13 +124,29 @@ def tags_view(tag_name):
 @app.route("/tags/management")
 def tags_manage():
     db = models.db
+
     tags = db.session.execute(
         db.select(models.Tag)
     ).scalars()
 
+    note_tag_records = db.session.execute(
+        db.select(models.note_tag_m2m)
+    ).all() 
+    
+    tag_In_Use = []
+
+    for note_id, tag_id in note_tag_records:
+        note = db.session.query(models.Note).filter(models.Note.id == note_id).one_or_none()
+        tag = db.session.query(models.Tag).filter(models.Tag.id == tag_id).one_or_none()
+        
+        if note and tag:
+            tag_In_Use.append(tag.id)
+
+    print(tag_In_Use)
     return flask.render_template(
         "tags-manage.html",
         tags=tags,
+        tag_In_Use=tag_In_Use,
     )
 
 @app.route("/tags/<tag_name>/update", methods=["GET","POST"])
@@ -156,6 +172,14 @@ def tags_update(tag_name):
         tag_name=tag_name,
     )
 
+@app.route("/tags/<tag_name>/delete", methods=["GET","POST"])
+def tags_delete(tag_name):
+    db = models.db
+    tag = db.session.query(models.Tag).filter(models.Tag.name == tag_name).first()
+    db.session.delete(tag)
+    db.session.commit()
+
+    return flask.redirect(flask.url_for("tags_manage"))
 
 
 if __name__ == "__main__":
