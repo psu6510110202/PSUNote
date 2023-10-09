@@ -3,6 +3,7 @@
 <ul class="nav justify-content-center" style="padding-top: 1em;">
   <li class="nav-item">
     <a class="btn btn-primary" href="{{ url_for('notes_create') }}">Create Note</a>
+    <a class="btn btn-primary" style="margin-left: 5px;" href="{{ url_for('tags_manage') }}">Tags management</a>
   </li>
 </ul>
 {% for note in notes %}
