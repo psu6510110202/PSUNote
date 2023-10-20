@@ -1,4 +1,4 @@
-Checkpoint 7 PSUNOTE Web app with additional function
+PostgreSQL Checkpoint #7 PSUNOTE Web app with additional function
 ------------------------------------
 !! New Feature !!
 - Edit Note
